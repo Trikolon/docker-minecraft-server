@@ -1,6 +1,9 @@
 FROM adoptopenjdk/openjdk11:alpine-jre
 
-LABEL maintainer "itzg"
+LABEL org.opencontainers.image.authors="Geoff Bourne <itzgeoff@gmail.com>"
+
+# upgrade all packages since alpine jre8 base image tops out at 8u212
+RUN apk -U --no-cache upgrade
 
 RUN apk add --no-cache -U \
   openssl \
@@ -71,7 +74,6 @@ ENV UID=1000 GID=1000 \
   TYPE=VANILLA VERSION=LATEST FORGEVERSION=RECOMMENDED SPONGEBRANCH=STABLE SPONGEVERSION= FABRICVERSION=LATEST LEVEL=world \
   PVP=true DIFFICULTY=easy ENABLE_RCON=true RCON_PORT=25575 RCON_PASSWORD=minecraft \
   LEVEL_TYPE=DEFAULT SERVER_PORT=25565 ONLINE_MODE=TRUE SERVER_NAME="Dedicated Server" \
-  REPLACE_ENV_VARIABLES="FALSE" ENV_VARIABLE_PREFIX="CFG_" \
   ENABLE_AUTOPAUSE=false AUTOPAUSE_TIMEOUT_EST=3600 AUTOPAUSE_TIMEOUT_KN=120 AUTOPAUSE_TIMEOUT_INIT=600 AUTOPAUSE_PERIOD=10
 
 COPY start* /
